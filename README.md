@@ -1,8 +1,8 @@
 
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<H3>ENTER YOUR NAME: STANLEY S</H3>
+<H3>ENTER YOUR REGISTER NO. 212223110054</H3>
 <H3>EX. NO.4</H3>
-<H3>DATE:</H3>
+<H3>DATE: 22/05/26</H3>
 <H1 ALIGN =CENTER>Implementation of MLP with Backpropagation for Multiclassification</H1>
 <H3>Aim:</H3>
 To implement a Multilayer Perceptron for Multi classification
@@ -116,11 +116,101 @@ Normalize our dataset.
 
 <H3>Program:</H3> 
 
-Insert your code here
+```py
+#Include packages and builtin classes
+import pandas as pd
+import sklearn
+from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import classification_report, confusion_matrix
+
+#Read the csv file to be considered for Multi-classification
+import pandas as pd
+
+# Dataset URL
+url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+
+# Column names
+names = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'Class']
+
+# Read dataset
+irisdata = pd.read_csv(url, names=names)
+
+# Take first 4 columns and assign them to variable "X"
+X = irisdata.iloc[:, 0:4]
+
+# Take the 5th column and assign it to variable "y"
+# Object dtype refers to strings
+y = irisdata.select_dtypes(include=['object'])
+
+# Display first 5 rows
+print(X.head())
+print(y.head())
+
+# Display unique classes/categories
+print(y.Class.unique())
+
+# Seperate the input features and target from the dataset
+from sklearn import preprocessing
+
+# Now transforming categorical values into numerical values
+le = preprocessing.LabelEncoder()
+
+# Apply label encoding to y
+y = y.apply(le.fit_transform)
+
+# Display first 5 rows
+print(y.head())
+
+#Split the data  for training  and testing
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import confusion_matrix, classification_report
+
+# Splitting dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.20, random_state=42
+)
+
+# Feature scaling
+scaler = StandardScaler()
+
+# Fit scaler on training data
+scaler.fit(X_train)
+
+# Transform training and testing data
+X_train = scaler.transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Create MLP Classifier
+mlp = MLPClassifier(
+    hidden_layer_sizes=(10, 10, 10),
+    max_iter=1000,
+    random_state=42
+)
+
+# Train the model
+mlp.fit(X_train, y_train.values.ravel())
+
+# Make predictions
+predictions = mlp.predict(X_test)
+
+# Print predictions
+print(predictions)
+
+# Evaluation of algorithm performance
+print(confusion_matrix(y_test, predictions))
+print(classification_report(y_test, predictions))
+```
 
 <H3>Output:</H3>
 
-Show your results here
+<img width="575" height="285" alt="image" src="https://github.com/user-attachments/assets/698c05f5-870b-4ac7-b718-099fd85fe5aa" /><br>
+<img width="117" height="146" alt="image" src="https://github.com/user-attachments/assets/2627f196-0dc3-4e92-b004-9db3f5cc125c" /><br>
+<img width="609" height="293" alt="image" src="https://github.com/user-attachments/assets/ddf79e18-1d4a-489d-840d-7bdd5ade64ec" />
 
 <H3>Result:</H3>
 Thus, MLP is implemented for multi-classification using python.
